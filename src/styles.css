@@ -1,7 +1,27 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"); */
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .App {
   font-family: sans-serif;
 }
 
 header {
-  border-bottom: 1px solid red;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.logo {
+  width: 2.5rem;
+}
+
+.brand-name {
+  font-size: 32px;
 }
