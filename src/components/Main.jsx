@@ -2,14 +2,10 @@ import { useState } from "react";
 import IngredientsList from "./IngredientsList";
 import ClaudeRecipe from "./ClaudeRecipe";
 import { getRecipeFromMistral } from "../ai";
+import Markdown from "react-markdown";
 
 export default function Main() {
-  const [ingredients, setIngredients] = useState([
-    "Tomato",
-    "Pepper",
-    "Salt",
-    "Maggi",
-  ]);
+  const [ingredients, setIngredients] = useState([]);
   const [recipeFromMistral, setRecipeFromMinstral] = useState("");
 
   // Add ingredients to list of ingredients
@@ -50,12 +46,14 @@ export default function Main() {
       {ingredients.length > 0 && (
         <IngredientsList
           ingredients={ingredients}
-          getRecipe={()=>getRecipe(ingredients)}
+          getRecipe={() => getRecipe(ingredients)}
         />
       )}
 
       {recipeFromMistral ? (
-        <ClaudeRecipe recipeFromMistral={recipeFromMistral} />
+        <ClaudeRecipe
+          recipeFromMistral={<Markdown>{recipeFromMistral}</Markdown>}
+        />
       ) : null}
     </main>
   );
