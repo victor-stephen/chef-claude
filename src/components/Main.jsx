@@ -1,33 +1,43 @@
 import { useState } from "react";
 import IngredientsList from "./IngredientsList";
 import ClaudeRecipe from "./ClaudeRecipe";
+import { getRecipeFromMistral } from "../ai";
 
 export default function Main() {
-  // State variables
   const [ingredients, setIngredients] = useState([
-    "all the main spices",
-    "pasta",
-    "ground beef",
-    "tomato pasta",
+    "Tomato",
+    "Pepper",
+    "Salt",
+    "Maggi",
   ]);
-  const [recipeShown, setRecipeShown] = useState(false);
+  const [recipeFromMistral, setRecipeFromMinstral] = useState("");
 
-  // Eventhandler function
+  // Add ingredients to list of ingredients
   function addIngredient(formData) {
     const newIngredient = formData.get("ingredient");
     setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
   }
 
-  function getRecipe() {
-    setRecipeShown((prevShown) => !prevShown);
+  // Get recipe from Mistral
+  async function getRecipe(currentIngredients) {
+    try {
+      const response = await getRecipeFromMistral(currentIngredients);
+      setRecipeFromMinstral(response);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    } finally {
+      console.log("Response completed");
+    }
   }
 
   // Components to be rendered
   return (
     <main>
+      {console.log(recipeFromMistral)}
       <form
         action={addIngredient}
         className="add-ingredient-form"
+        autoComplete="off"
       >
         <input
           type="text"
@@ -40,11 +50,13 @@ export default function Main() {
       {ingredients.length > 0 && (
         <IngredientsList
           ingredients={ingredients}
-          getRecipe={getRecipe}
+          getRecipe={()=>getRecipe(ingredients)}
         />
       )}
 
-      {recipeShown && <ClaudeRecipe />}
+      {recipeFromMistral ? (
+        <ClaudeRecipe recipeFromMistral={recipeFromMistral} />
+      ) : null}
     </main>
   );
 }
