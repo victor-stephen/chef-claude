@@ -10,7 +10,7 @@ export default function Main() {
 
   // Add ingredients to list of ingredients
   function addIngredient(formData) {
-    const newIngredient = formData.get("ingredient");
+    const newIngredient = formData.get("ingredient"); 
     setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
   }
 
@@ -29,7 +29,6 @@ export default function Main() {
   // Components to be rendered
   return (
     <main>
-      {console.log(recipeFromMistral)}
       <form
         action={addIngredient}
         className="add-ingredient-form"
