@@ -1,4 +1,4 @@
-export default function IngredientsList({ ingredients, getRecipe }) {
+export default function IngredientsList({ ingredients, getRecipe, ref }) {
    const ingredientsListItems = ingredients.map(
      (ingredient, index) => (
        <li key={index}>{ingredient}</li>
@@ -15,7 +15,7 @@ export default function IngredientsList({ ingredients, getRecipe }) {
       </ul>
       {ingredients.length > 3 && (
         <div className="get-recipe-container">
-          <div>
+          <div ref={ref}>
             <h3>Ready for a reciper?</h3>
             <p>
               Generate a recipe from your list of
